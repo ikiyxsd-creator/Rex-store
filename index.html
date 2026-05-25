@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REX STORE | Cyber Farming Premium Store</title>
+    <style>
+        /* ==========================================================================
+           1. ROOT CORE SYSTEM & DYNAMIC NEON PALETTE (White, Cyber Blue & Orange)
+           ========================================================================== */
+        :root {
+            --bg-void: #020612;
+            --bg-glass-surface: rgba(10, 20, 42, 0.7);
+            --bg-card-farming: rgba(18, 32, 64, 0.55);
+            --bg-input-field: #050a16;
+            
+            --neon-blue: #00d2ff;
+            --neon-orange: #ff5500;
+            --neon-white: #ffffff;
+            --text-glow-blue: rgba(0, 210, 255, 0.4);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-neon: #38bdf8;
+            
+            --border-dim: rgba(255, 255, 255, 0.08);
+            --border-active: #00d2ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', BlinkMacSystemFont, Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           2. ANIMATED SPIDERWEB BACKGROUND GRID EFFECTS (CSS ONLY)
+           ========================================================================== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 60%, rgba(2, 6, 18, 0.9) 100%),
+                linear-gradient(rgba(0, 210, 255, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(255, 85, 0, 0.03) 1.5px, transparent 1.5px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Abstract Spiderweb Geometric Moving Accent Lines */
+        .spiderweb-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                repeating-radial-gradient(circle at 30% 20%, transparent 0px, transparent 40px, rgba(0, 210, 255, 0.015) 41px, rgba(0, 210, 255, 0.015) 43px),
+                repeating-radial-gradient(circle at 80% 70%, transparent 0px, transparent 60px, rgba(255, 85, 0, 0.015) 61px, rgba(255, 85, 0, 0.015) 63px);
+            z-index: -1;
+            pointer-events: none;
+            animation: webDrift 20s infinite alternate linear;
+        }
+
+        @keyframes webDrift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(4deg); }
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC GRAFFITI TEXT SPINNING GRADIENT ANIMATION (Header & Branding)
+           ========================================================================== */
+        header {
+            background: linear-gradient(180deg, rgba(10, 20, 42, 0.8) 0%, var(--bg-void) 100%);
+            backdrop-filter: blur(10px);
+            padding: 25px 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* Animated Glowing Border */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-white), var(--neon-orange), var(--neon-blue));
+            background-size: 300% 100%;
+            animation: graffitiSpin 6s infinite linear;
+        }
+
+        .header-main-title {
+            font-size: 2.3rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-white) 0%, var(--neon-blue) 35%, var(--neon-orange) 70%, var(--neon-white) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: graffitiSpin 4s infinite linear;
+            display: inline-block;
+        }
+
+        @keyframes graffitiSpin {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .header-sub-tag {
+            font-size: 0.78rem;
+            color: var(--neon-white);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 6px;
+            font-weight: 700;
+            text-shadow: 0 0 6px rgba(255,255,255,0.3);
+        }
+
+        .badge-trusted {
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-white);
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+        /* ==========================================================================
+           4. RUNNING TEXT MARQUEE ACCENT SYSTEM
+           ========================================================================== */
+        .marquee-viewport {
+            width: 100%;
+            background-color: #030816;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.15);
+            overflow: hidden;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            width: max-content;
+            animation: marqueeProcess 20s linear infinite;
+        }
+
+        .marquee-content {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            padding-right: 40px;
+        }
+
+        .marquee-content span {
+            color: var(--neon-orange);
+            margin-right: 6px;
+        }
+
+        @keyframes marqueeProcess {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* ==========================================================================
+           5. SIDEBAR NAVIGATION CONTROLLER (Tombol Garis 3 & Drawer Dashboard)
+           ========================================================================== */
+        .hamburger-menu {
+            position: absolute;
+            top: 25px;
+            left: 15px;
+            z-index: 1100;
+            cursor: pointer;
+            background: rgba(10, 20, 42, 0.8);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.25s ease;
+        }
+
+        .hamburger-menu:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--text-glow-blue);
+        }
+
+        .hamburger-line {
+            width: 22px;
+            height: 2px;
+            background-color: var(--neon-white);
+            transition: all 0.3s ease;
+        }
+
+        /* Hambuger Morphing Effect into Cross (X) */
+        .hamburger-menu.open-bar .hamburger-line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background-color: var(--neon-orange);
+        }
+        .hamburger-menu.open-bar .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.open-bar .hamburger-line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background-color: var(--neon-orange);
+        }
+
+        .sidebar-dashboard {
+            position: fixed;
+            top: 0; left: -280px; width: 280px; height: 100%;
+            background: linear-gradient(180deg, #050b18 0%, #01040a 100%);
+            border-right: 2px solid var(--neon-blue);
+            box-shadow: 15px 0 35px rgba(0,0,0,0.8);
+            z-index: 1050;
+            padding: 80px 20px 20px 20px;
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-dashboard.active-sidebar {
+            left: 0;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            font-weight: 800;
+            border-bottom: 1px dashed var(--border-dim);
+            padding-bottom: 5px;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar-btn {
+            background: var(--bg-card-farming);
+            border: 1px solid var(--border-dim);
+            color: var(--text-main);
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-btn:hover {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            transform: translateX(4px);
+            background: rgba(0, 210, 255, 0.05);
+        }
+
+        .sidebar-btn.btn-report-trigger {
+            border-color: rgba(255, 85, 0, 0.4);
+            color: var(--neon-orange);
+        }
+
+        .sidebar-btn.btn-report-trigger:hover {
+            background: rgba(255, 85, 0, 0.08);
+            border-color: var(--neon-orange);
+            color: var(--neon-white);
+        }
+
+        /* ==========================================================================
+           6. INTERACTION NAVIGATION SWITCHES (TABS)
+           ========================================================================== */
+        .navigation-hub {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 22px auto;
+            padding: 0 15px;
+            max-width: 480px;
+        }
+
+        .hub-btn {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(10,20,42,0.8) 0%, rgba(5,10,25,0.8) 100%);
+            border: 1px solid var(--border-dim);
+            color: var(--text-muted);
+            padding: 13px 8px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+        }
+
+        .hub-btn.active-hub {
+            background: var(--bg-card-farming);
+            color: var(--neon-white);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 12px var(--text-glow-blue);
+        }
+
+        /* ==========================================================================
+           7. PRODUCT SHOWCASE GRID (Kiri Kanan Kotak Menu - Farming Glassmorphism)
+           ========================================================================== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        .info-panel-box {
+            background: var(--bg-glass-surface);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-dim);
+            border-left: 3px solid var(--neon-blue);
+            padding: 14px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Susunan Kotak Kiri-Kanan Stabil di HP */
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        .product-card {
+            background: var(--bg-card-farming);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--border-dim);
+            border-radius: 6px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.15);
+            background: rgba(18, 32, 64, 0.75);
+        }
+        .product-meta {
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--neon-white);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+        }
+
+        .product-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-features-list {
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
+            padding-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .feature-tag {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--neon-orange);
+            margin-bottom: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-order {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 9px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-order:hover {
+            background: var(--neon-blue);
+            color: var(--bg-void);
+            box-shadow: 0 0 10px var(--text-glow-blue);
+        }
+
+        /* ==========================================================================
+           8. TRANSACTION MODAL FRAME (Glassmorphism Config)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(2, 4, 10, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 15px;
+        }
+
+        .modal-overlay.active-modal {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-frame {
+            background: linear-gradient(180deg, #0a142a 0%, #030816 100%);
+            border: 2px solid var(--border-dim);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            transform: scale(0.93);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active-modal .modal-frame {
+            transform: scale(1);
+            border-color: var(--neon-blue);
+        }
+
+        .modal-header {
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--neon-white);
+            text-transform: uppercase;
+        }
+
+        .modal-subtitle {
+            font-size: 0.85rem;
+            color: var(--neon-blue);
+            font-weight: 800;
+            display: block;
+            margin-top: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group.hidden-group {
+            display: none;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--neon-orange);
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: var(--bg-input-field);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: var(--neon-white);
+            font-size: 0.85rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+        }
+
+        textarea.form-control {
+            resize: none;
+            height: 70px;
+        }
+
+        /* Fast Track Panel Config (+Rp 20.000) */
+        .addon-container {
+            background-color: var(--bg-input-field);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .addon-container.show-addon {
+            display: block;
+            border-color: rgba(0, 210, 255, 0.2);
+        }
+
+        .addon-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .addon-main-text {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--neon-white);
+            text-transform: uppercase;
+        }
+
+        .addon-sub-text {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 38px;
+            height: 20px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #1e293b;
+            transition: .2s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 12px;
+            width: 12px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--neon-white);
+            transition: .2s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--neon-blue); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border-dim);
+            color: var(--text-muted);
+            padding: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-submit {
+            flex: 2;
+            background: var(--neon-blue);
+            border: none;
+            color: var(--bg-void);
+            padding: 10px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           9. SYSTEM FLOATING FOOTER BANNER
+           ========================================================================== */
+        .floating-footer {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background-color: rgba(5, 11, 24, 0.9);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border-dim);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 900;
+        }
+
+        .dev-link {
+            background: none; border: none;
+            color: var(--neon-blue);
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: underline;
+        }
+
+        .motto-text {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--neon-white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .welcome-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-void);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        .welcome-box {
+            background: linear-gradient(180deg, #0a142a 0%, #020612 100%);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 460px;
+            padding: 20px;
+            box-shadow: 0 0 30px var(--text-glow-blue);
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--neon-white);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 8px;
+        }
+
+        .welcome-list { text-align: left; margin-bottom: 18px; }
+
+        .welcome-item {
+            background-color: var(--bg-input-field);
+            border: 1px solid var(--border-dim);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        .welcome-item span {
+            display: block; font-weight: 800;
+            color: var(--neon-blue); font-size: 0.68rem;
+            margin-bottom: 1px; text-transform: uppercase;
+        }
+
+        .btn-enter {
+            width: 100%; background: var(--neon-blue);
+            color: var(--bg-void); border: none;
+            padding: 11px; font-size: 0.85rem; font-weight: 800;
+            border-radius: 4px; cursor: pointer; text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spiderweb-overlay"></div>
+
+    <div id="hamburgerBtn" class="hamburger-menu" onclick="toggleSidebar()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <div id="sidebarDashboard" class="sidebar-dashboard">
+        <div class="sidebar-top">
+            <h3 class="sidebar-title">Rex Hub Central</h3>
+            <div class="sidebar-links">
+                <button type="button" class="sidebar-btn" onclick="openDevTikTok()">TikTok Dev <span>➔</span></button>
+                <button type="button" class="sidebar-btn" onclick="openDiscordHub()">Discord System <span>➔</span></button>
+                <button type="button" class="sidebar-btn" onclick="openWhatsAppSaluran()">Saluran WhatsApp <span>➔</span></button>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <h3 class="sidebar-title">Bantuan</h3>
+            <button type="button" class="sidebar-btn btn-report-trigger" onclick="openReportModal()">🚨 Laporkan Masalah</button>
+        </div>
+    </div>
+
+    <div id="welcomePopup" class="welcome-overlay">
+        <div class="welcome-box">
+            <h2 class="welcome-title">WELCOME TO REX STORE </h2>
+            <div class="welcome-list">
+                <div class="welcome-item">
+                    <span>KEUNTUNGAN UTAMA</span>
+                    Membeli jasa pembuat map paling cepat 2 hari, antrian bisa diutamakan jika membayar lebih.
+                </div>
+                <div class="welcome-item">
+                    <span>KEBIJAKAN DESAIN</span>
+                    Anti copy-paste map tergantung request pembeli misal mau seperti cidori oke kita buatkan.
+                </div>
+                <div class="welcome-item">
+                    <span>TRANSPARANSI PROSES</span>
+                    Pengerjaan dilakukan secara live streaming dan aktif berkomunikasi dengan pembeli.
+                </div>
+            </div>
+            <button type="button" class="btn-enter" onclick="closeWelcomePopup()">Masuk ke menu Store</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <h1 class="header-main-title">REX STORE</h1>
+            <p class="header-sub-tag">Cyber Farming Architecture Hub</p>
+            <div class="badge-trusted">100% AMANAH🛡️</div>
+        </div>
+    </header>
+
+    <div class="marquee-viewport">
+        <div class="marquee-track">
+            <div class="marquee-content"><span>•</span> Rex store professional building studio Roblox</div>
+            <div class="marquee-content"><span>•</span> Rex store professional building studio Roblox</div>
+            <div class="marquee-content"><span>•</span> Rex store professional building studio Roblox</div>
+            <div class="marquee-content"><span>•</span> Rex store professional building studio Roblox</div>
+        </div>
+    </div>
+
+    <div class="navigation-hub">
+        <button type="button" id="tabRoblox" class="hub-btn active-hub" onclick="switchSection('roblox')">BUILD MAP ROBLOX</button>
+        <button type="button" id="tabSmm" class="hub-btn" onclick="switchSection('smm')">SMM SUNTIK SOSMED</button>
+    </div>
+
+    <main>
+        <section id="sectionRoblox" class="view-section active-view">
+            <div class="info-panel-box">
+                Rancangan arsitektur map premium REX STUDIO dengan integrasi script sistem viral modern teratas. Estimasi reguler pengerjaan maksimal 3 hari kerja. Nyalakan Fast Track (+Rp 20.000) untuk jaminan pengerjaan instan prioritas.
+            </div>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">Mount 5 CP System</h3>
+                        <div class="product-price">Rp 100.000</div>
+                    </div>
+                    <p class="product-desc">Sistem lintasan rintangan checkpoint terstruktur dengan isi 5 zona tantangan viral.</p>
+                    <div class="product-features-list">
+                        <span class="feature-tag">✔ Summit Kit Integration</span>
+                        <span class="feature-tag">✔ DataStore Auto-Save</span>
+                        <span class="feature-tag">✔ Anti-Lag Optimization</span>
+                    </div>
+                    <button type="button" class="btn-order" onclick="openOrderModal('Roblox', 'Mount 5 CP System', 100000)">Pesan</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">Map Club Premium</h3>
+                        <div class="product-price">Rp 300.000</div>
+                    </div>
+                    <p class="product-desc">Desain club malam mewah, lengkap dengan set lighting room estetik neon, DJ stand, dan room VIP.</p>
+                    <div class="product-features-list">
+                        <span class="feature-tag">✔ Donation Board System</span>
+                        <span class="feature-tag">✔ Gamepass Integration</span>
+                        <span class="feature-tag">✔ Custom Audio Synchronization</span>
+                    </div>
+                    <button type="button" class="btn-order" onclick="openOrderModal('Roblox', 'Map Club Premium', 300000)">Pesan</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">Map Hangout Area</h3>
+                        <div class="product-price">Rp 200.000</div>
+                    </div>
+                    <p class="product-desc">Zona kumpul santai outdoor/indoor berkonsep estetik untuk menaikkan retensi komunitas game Anda.</p>
+                    <div class="product-features-list">
+                        <span class="feature-tag">✔ Admin Command UI Menu</span>
+                        <span class="feature-tag">✔ Save System Progress</span>
+                        <span class="feature-tag">✔ Custom Chat Tag & Proximity</span>
+                    </div>
+                    <button type="button" class="btn-order" onclick="openOrderModal('Roblox', 'Map Hangout Area', 200000)">Pesan</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sectionSmm" class="view-section">
+            <div class="info-panel-box">
+                Layanan suntik data metrik media sosial khusus platform TikTok. Kualitas terjamin menggunakan jalur server pusat low-drop berkala berkecepatan tinggi.
+            </div>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">100 Followers</h3>
+                        <div class="product-price">Rp 5.000</div>
+                    </div>
+                    <p class="product-desc">Suntik metrik pengikut profil akun. Sistem stabil low-drop aman tanpa password.</p>
+                    <button type="button" class="btn-order" onclick="openOrderModal('SMM', '100 Followers', 5000)">Pesan</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">100 Likes</h3>
+                        <div class="product-price">Rp 3.000</div>
+                    </div>
+                    <p class="product-desc">Suntik interaksi suka pada tautan video yang ditargetkan untuk mendorong rasio FYP.</p>
+                    <button type="button" class="btn-order" onclick="openOrderModal('SMM', '100 Likes', 3000)">Pesan</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">100 Views</h3>
+                        <div class="product-price">Rp 3.000</div>
+                    </div>
+                    <p class="product-desc">Menambah impresi tayangan views pada postingan video target secara instan cepat.</p>
+                    <button type="button" class="btn-order" onclick="openOrderModal('SMM', '100 Views', 3000)">Pesan</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-meta">
+                        <h3 class="product-title">50 Penonton Live</h3>
+                        <div class="product-price">Rp 10.000</div>
+                    </div>
+                    <p class="product-desc">Injeksi penonton pasif dengan durasi khusus untuk menaikkan interaksi siaran langsung.</p>
+                    <button type="button" class="btn-order" onclick="openOrderModal('SMM', '50 Penonton Live', 10000)">Pesan</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="orderModal" class="modal-overlay">
+        <div class="modal-frame">
+            <div class="modal-header">
+                <h3 id="modalProductTitle" class="modal-title">NAMA PRODUK</h3>
+                <span id="modalProductPrice" class="modal-subtitle">Rp 0</span>
+            </div>
+            
+            <form id="orderForm">
+                <div id="groupRobloxTarget" class="form-group">
+                    <label for="buyerNameRoblox">Nama Pembeli / Akun Roblox</label>
+                    <input type="text" id="buyerNameRoblox" class="form-control" placeholder="Masukkan nama atau user Roblox Anda...">
+                </div>
+
+                <div id="groupSmmName" class="form-group hidden-group">
+                    <label for="buyerNameSmm">Nama Pemesan</label>
+                    <input type="text" id="buyerNameSmm" class="form-control" placeholder="Masukkan nama panggilan Anda...">
+                </div>
+                <div id="groupSmmLink" class="form-group hidden-group">
+                    <label for="buyerLinkSmm">Link Tautan TikTok</label>
+                    <input type="text" id="buyerLinkSmm" class="form-control" placeholder="Masukkan URL / Link video atau akun TikTok...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="buyerNotes">Catatan Instruksi Custom Request</label>
+                    <textarea id="buyerNotes" class="form-control" placeholder="Tulis instruksi request detail tambahan di sini..."></textarea>
+                </div>
+                
+                <div id="addonFastTrackPanel" class="addon-container">
+                    <div class="addon-option">
+                        <div class="addon-label">
+                            <span class="addon-main-text">Fast Track Priority</span>
+                            <span class="addon-sub-text">Prioritas antrean pengerjaan cepat 2 hari (+Rp 20.000)</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="chkFastTrack" onchange="calculateTotal()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeOrderModal()">Batal</button>
+                    <button type="submit" class="btn-submit">Beli Jasa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="reportModal" class="modal-overlay">
+        <div class="modal-frame">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color: var(--neon-orange);">🚨 Hub Pusat Laporan Masalah</h3>
+                <span class="modal-subtitle" style="color: var(--neon-white);">Kirim Keluhan Sistem / Bug Store</span>
+            </div>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="reporterName">Nama Pelapor</label>
+                    <input type="text" id="reporterName" class="form-control" placeholder="Masukkan nama Anda..." required>
+                </div>
+                <div class="form-group">
+                    <label for="reportMessage">Detail Kronologi Kendala</label>
+                    <textarea id="reportMessage" class="form-control" placeholder="Tulis rincian kendala teknis atau keluhan transaksi Anda di sini..." required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeReportModal()">Batal</button>
+                    <button type="submit" class="btn-submit" style="background: var(--neon-orange); color: var(--neon-white);">Kirim Laporan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="floating-footer">
+        <button type="button" class="dev-link" onclick="openDevTikTok()">DEV: rexyah.life</button>
+        <div class="motto-text">anda puas kami lemas</div>
+    </footer>
+    <script>
+        /* --------------------------------------------------------------------------
+         * SLOT KONFIGURASI TAUTAN KUSTOM (Silakan Ganti Sesuai Link Anda)
+         * -------------------------------------------------------------------------- */
+        const CONFIG_LINK_DISCORD = "https://discord.gg/rexyah21"; // Ganti dengan link Discord Anda
+        const CONFIG_LINK_SALURAN = "https://whatsapp.com/channel/0029VbD8VNhGufIxTfBnAX23"; // Ganti dengan link Saluran WA Anda
+        const CONFIG_PHONE_ADMIN  = "6282342634863"; // Nomor WA Admin REX STUDIO
+
+        // Deklarasi global state transaksi data
+        let currentSectionType = 'Roblox';
+        let currentItemName = '';
+        let systemBaseValue = 0;
+        let systemCalculatedTotal = 0;
+
+        /* --------------------------------------------------------------------------
+         * A. SYSTEM POPUP ALERT CONTROLLER
+         * -------------------------------------------------------------------------- */
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memastikan popup inisialisasi awal menyala dengan transisi opacity
+            document.getElementById('welcomePopup').style.opacity = '1';
+        });
+
+        function closeWelcomePopup() {
+            const systemPopup = document.getElementById('welcomePopup');
+            systemPopup.style.opacity = '0';
+            setTimeout(() => {
+                systemPopup.style.display = 'none';
+            }, 300);
+        }
+
+        /* --------------------------------------------------------------------------
+         * B. SIDEBAR DASHBOARD DRAWER CONTROLLER (Garis 3 Hub)
+         * -------------------------------------------------------------------------- */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarDashboard');
+            const hamburger = document.getElementById('hamburgerBtn');
+            
+            sidebar.classList.toggle('active-sidebar');
+            hamburger.classList.toggle('open-bar');
+        }
+
+        // Fungsi Pengalihan Link Eksternal Berdasarkan Slot Konfigurasi Di Atas
+        function openDevTikTok() {
+            window.location.href = "https://www.tiktok.com/@king.rexyah";
+        }
+
+        function openDiscordHub() {
+            if(CONFIG_LINK_DISCORD === "" || CONFIG_LINK_DISCORD.includes("MOCK_LINK")) {
+                alert("Sistem: Link Discord belum dikonfigurasi di dalam skrip skenario utama.");
+            } else {
+                window.location.href = CONFIG_LINK_DISCORD;
+            }
+        }
+
+        function openWhatsAppSaluran() {
+            if(CONFIG_LINK_SALURAN === "" || CONFIG_LINK_SALURAN.includes("MOCK_LINK")) {
+                alert("Sistem: Link Saluran WhatsApp belum dikonfigurasi di dalam skrip skenario utama.");
+            } else {
+                window.location.href = CONFIG_LINK_SALURAN;
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+         * C. INTERACTION SWITCH HUB (Tab Controller)
+         * -------------------------------------------------------------------------- */
+        function switchSection(targetSection) {
+            document.getElementById('tabRoblox').classList.remove('active-hub');
+            document.getElementById('tabSmm').classList.remove('active-hub');
+            document.getElementById('sectionRoblox').classList.remove('active-view');
+            document.getElementById('sectionSmm').classList.remove('active-view');
+
+            if (targetSection === 'roblox') {
+                currentSectionType = 'Roblox';
+                document.getElementById('tabRoblox').classList.add('active-hub');
+                document.getElementById('sectionRoblox').classList.add('active-view');
+            } else if (targetSection === 'smm') {
+                currentSectionType = 'SMM';
+                document.getElementById('tabSmm').classList.add('active-hub');
+                document.getElementById('sectionSmm').classList.add('active-view');
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+         * D. ORDER MODAL ENGINE (Form Field Dynamic Swap & Calculation)
+         * -------------------------------------------------------------------------- */
+        function openOrderModal(category, productName, priceTag) {
+            currentSectionType = category;
+            currentItemName = productName;
+            systemBaseValue = priceTag;
+            
+            document.getElementById('orderForm').reset();
+            document.getElementById('chkFastTrack').checked = false;
+
+            const elementRobloxGrid = document.getElementById('groupRobloxTarget');
+            const elementSmmNameGrid = document.getElementById('groupSmmName');
+            const elementSmmLinkGrid = document.getElementById('groupSmmLink');
+            const elementAddonPanel = document.getElementById('addonFastTrackPanel');
+
+            const inputRobloxNode = document.getElementById('buyerNameRoblox');
+            const inputSmmNameNode = document.getElementById('buyerNameSmm');
+            const inputSmmLinkNode = document.getElementById('buyerLinkSmm');
+
+            if (category === 'Roblox') {
+                elementRobloxGrid.classList.remove('hidden-group');
+                elementSmmNameGrid.classList.add('hidden-group');
+                elementSmmLinkGrid.classList.add('hidden-group');
+                
+                inputRobloxNode.setAttribute('required', 'required');
+                inputSmmNameNode.removeAttribute('required');
+                inputSmmLinkNode.removeAttribute('required');
+                elementAddonPanel.classList.add('show-addon');
+            } else if (category === 'SMM') {
+                elementRobloxGrid.classList.add('hidden-group');
+                elementSmmNameGrid.classList.remove('hidden-group');
+                elementSmmLinkGrid.classList.remove('hidden-group');
+                
+                inputRobloxNode.removeAttribute('required');
+                inputSmmNameNode.setAttribute('required', 'required');
+                inputSmmLinkNode.setAttribute('required', 'required');
+                elementAddonPanel.classList.remove('show-addon');
+            }
+
+            document.getElementById('modalProductTitle').innerText = productName;
+            calculateTotal();
+            document.getElementById('orderModal').classList.add('active-modal');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active-modal');
+        }
+
+        function calculateTotal() {
+            systemCalculatedTotal = systemBaseValue;
+            const isPriorityChecked = document.getElementById('chkFastTrack').checked;
+
+            if (currentSectionType === 'Roblox' && isPriorityChecked) {
+                systemCalculatedTotal += 20000;
+            }
+
+            const stringCurrencyResult = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(systemCalculatedTotal);
+
+            document.getElementById('modalProductPrice').innerText = stringCurrencyResult;
+        }
+
+        // Submit Form Transaksi Jasa Utama ke WhatsApp
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const userTextNotes = document.getElementById('buyerNotes').value.trim() || 'Tidak ada catatan tambahan.';
+            let computedIdentityString = '';
+
+            if (currentSectionType === 'Roblox') {
+                computedIdentityString = "Nama/Akun Roblox: " + document.getElementById('buyerNameRoblox').value.trim();
+            } else if (currentSectionType === 'SMM') {
+                const textUserSmm = document.getElementById('buyerNameSmm').value.trim();
+                const textLinkSmm = document.getElementById('buyerLinkSmm').value.trim();
+                computedIdentityString = "Nama Pemesan: " + textUserSmm + "\nLink TikTok   : " + textLinkSmm;
+            }
+
+            let textFastTrackFlag = "TIDAK AKTIF (Antrean Standar)";
+            if (currentSectionType === 'Roblox' && document.getElementById('chkFastTrack').checked) {
+                textFastTrackFlag = "AKTIF (Pengerjaan Cepat 2 Hari)";
+            }
+
+            const textFormattedFinalCost = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(systemCalculatedTotal);
+
+            let structuralPayload = "Halo Admin REX STUDIO, saya ingin memesan jasa dengan detail berikut:\n\n";
+            structuralPayload += "=== DETAIL DATA PEMBELIAN ===\n";
+            structuralPayload += "Kategori Jasa : " + currentSectionType + "\n";
+            structuralPayload += "Nama Produk   : " + currentItemName + "\n";
+            structuralPayload += computedIdentityString + "\n";
+            structuralPayload += "Catatan/Req   : " + userTextNotes + "\n";
+            
+            if (currentSectionType === 'Roblox') {
+                structuralPayload += "Fast Track    : " + textFastTrackFlag + "\n";
+            }
+            
+            structuralPayload += "Estimasi Kerja: Maksimal 3 Hari\n";
+            structuralPayload += "Total Biaya   : " + textFormattedFinalCost + "\n\n";
+            structuralPayload += "Motto Store   : anda puas kami lemas\n\n";
+            structuralPayload += "Mohon segera diproses di server dev utama, terima kasih!";
+
+            const fullyEncodedMessageString = encodeURIComponent(structuralPayload);
+            const absoluteRedirectUrl = "https://api.whatsapp.com/send?phone=" + CONFIG_PHONE_ADMIN + "&text=" + fullyEncodedMessageString;
+
+            closeOrderModal();
+            window.location.href = absoluteRedirectUrl;
+        });
+
+        /* --------------------------------------------------------------------------
+         * E. REPORT SUBMIT ENGINE (Form Keluhan Bug System)
+         * -------------------------------------------------------------------------- */
+        function openReportModal() {
+            toggleSidebar(); // Tutup sidebar drawer terlebih dahulu
+            document.getElementById('reportForm').reset();
+            document.getElementById('reportModal').classList.add('active-modal');
+        }
+
+        function closeReportModal() {
+            document.getElementById('reportModal').classList.remove('active-modal');
+        }
+
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const reporterName = document.getElementById('reporterName').value.trim();
+            const reportMessage = document.getElementById('reportMessage').value.trim();
+
+            let reportPayload = "🚨 LAPORAN KENDALA SISTEM / BUG - REX STUDIO 🚨\n\n";
+            reportPayload += "Nama Pelapor     : " + reporterName + "\n";
+            reportPayload += "Detail Kronologi : " + reportMessage + "\n\n";
+            reportPayload += "Mohon bantuan tim IT developer untuk melakukan pengecekan log sistem web dev. Terima kasih.";
+
+            const encodedReport = encodeURIComponent(reportPayload);
+            const redirectReportUrl = "https://api.whatsapp.com/send?phone=" + CONFIG_PHONE_ADMIN + "&text=" + encodedReport;
+
+            closeReportModal();
+            window.location.href = redirectReportUrl;
+        });
+    </script>
+</body>
+</html>
